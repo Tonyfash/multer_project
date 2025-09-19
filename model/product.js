@@ -4,13 +4,14 @@ const productSchema = new mongoose.Schema({
     productName: {
         type: String,
         trim: true,
-        unique: true
+        unique: true,
     },
-    productImages:[{
-        imageUrl:{type: String, required: true},
-        publicId:{type: String, required: true}
+    productImages: [{
+        imageUrl: { type: String, required: true },
+        publicId: { type: String, required: true }
     }],
-}, {timestamps: true}
+}, 
+{ timestamps: true }
 );
 
 const productModel = mongoose.model('Product', productSchema);

@@ -15,8 +15,8 @@ exports.products =  async (req, res) => {
             for (const file of files) {
                 response = await cloudinary.uploader.upload(file.path);
                 product = {
-                    publicId: response.public_id,
-                    imageUrl: response.secure_url
+                    imageUrl: response.secure_url,
+                    publicId: response.public_id
                 };
                 listOfProducts.push(product);
                 fs.unlinkSync(file.path)
@@ -27,7 +27,7 @@ exports.products =  async (req, res) => {
             productImages: listOfProducts
         })
 
-        re.status(201).json({
+        res.status(201).json({
             message: 'Products created successfully',
             data: products
         })
@@ -40,6 +40,23 @@ exports.products =  async (req, res) => {
     }
 };
 
+exports.getProducts = async (req, res) => {
+    try {
+        const products = await productModel.find();
+        res.status(200).json({
+            message: 'All products below',
+            total: products.length,
+            data: products
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Internal Server Error',
+            error: error.message
+        })
+    }
+    
+}
 exports.update = async (req, res) => {
     try {
         const {productName} = req.body;
