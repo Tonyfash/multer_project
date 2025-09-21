@@ -5,6 +5,7 @@ const router = require('express').Router();
 
 router.post('/products', uploads.array('productImages', 5), products);
 router.put('/products/:id', uploads.array('productImages', 5), update);
-router.get('/products', getProducts);
+router.get('/get/product', getProducts);
+
 
 module.exports = router;
